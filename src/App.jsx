@@ -9,6 +9,9 @@ function App() {
   const [category, setCategory] = useState("all");
   const [page, setPage] = useState("home");
   const [loggedIn, setLoggedIn] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loginError, setLoginError] = useState("");
 
   // Fetch products
   useEffect(() => {
@@ -39,7 +42,22 @@ function App() {
   const removeFromWishlist = (id) => setWishlist((prev) => prev.filter((x) => x.id !== id));
 
   // Login / Logout
-  const handleLogin = () => {
+  const handleLogin = (event) => {
+    event.preventDefault();
+    const validCredentials = [
+      { email: "admin@example.com", password: "admin123" },
+      { email: "user@example.com", password: "user123" },
+    ];
+    const credentialsMatch = validCredentials.some(
+      (account) => account.email === email && account.password === password
+    );
+
+    if (!credentialsMatch) {
+      setLoginError("Invalid email or password.");
+      return;
+    }
+
+    setLoginError("");
     setLoggedIn(true);
     localStorage.setItem("loggedIn", "true");
   };
@@ -75,9 +93,27 @@ function App() {
     <div className="login-page">
       <div className="login-box">
         <h2>Login</h2>
-        <input type="text" placeholder="Username" />
-        <input type="password" placeholder="Password" />
-        <button onClick={handleLogin}>Login</button>
+        <div className="demo-credentials">
+          <p>Use admin@example.com / admin123 or user@example.com / user123</p>
+        </div>
+        <form onSubmit={handleLogin}>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            required
+          />
+          {loginError && <p className="login-error" role="alert">{loginError}</p>}
+          <button type="submit">Login</button>
+        </form>
       </div>
     </div>
   );

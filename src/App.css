@@ -291,6 +291,34 @@ button:hover {
   font-size: 32px; /* larger heading */
 }
 
+.demo-credentials {
+  margin: -12px 0 12px;
+  padding: 12px;
+  border-radius: 8px;
+  background: #fff4df;
+  color: #493713;
+  text-align: left;
+}
+
+.demo-credentials strong {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.demo-credentials p {
+  margin: 3px 0;
+}
+
+.login-error {
+  margin: 0;
+  color: #b42318;
+  text-align: left;
+}
+
+.demo-credentials span {
+  font-weight: 700;
+}
+
 .login-box input {
   width: 100%;
   padding: 16px 12px; /* bigger input */
